@@ -1,0 +1,5 @@
+{
+  "name": "Mô phỏng Định luật Chất khí",
+  "description": "Ứng dụng mô phỏng các quá trình đẳng nhiệt, đẳng áp và đẳng tích với xilanh, pit-tông và các thiết bị đo lường.",
+  "requestFramePermissions": []
+}
