@@ -4,7 +4,7 @@ import { Dashboard } from './components/Dashboard';
 import { GasChart } from './components/GasChart';
 import { GasProcess, GasState, Measurement } from './types';
 import { motion, AnimatePresence } from 'motion/react';
-import { Plus, Trash2, Info, RefreshCcw, Table as TableIcon, Activity } from 'lucide-react';
+import { Trash2, Info, RefreshCcw, Table as TableIcon, Activity } from 'lucide-react';
 
 const INITIAL_STATE: GasState = {
   pressure: 100,
@@ -145,10 +145,9 @@ export default function App() {
               <h2 className="text-lg font-black text-slate-800 tracking-tight">Điều khiển</h2>
               <button 
                 onClick={addMeasurement}
-                className="p-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl transition-all shadow-lg shadow-teal-600/20 active:scale-95"
-                title="Ghi số liệu"
+                className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl transition-all shadow-lg shadow-teal-600/20 active:scale-95 text-xs font-bold"
               >
-                <Plus size={20} />
+                Nhập số liệu
               </button>
             </div>
 
