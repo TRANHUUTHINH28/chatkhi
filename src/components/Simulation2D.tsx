@@ -107,11 +107,13 @@ export const Simulation2D: React.FC<Simulation2DProps> = ({ state }) => {
         p.y += p.vy * speedMultiplier;
 
         // Wall collisions (Left/Right)
-        if (p.x - p.radius < CYLINDER_X) {
-          p.x = CYLINDER_X + p.radius;
+        const innerLeft = CYLINDER_X + 4;
+        const innerRight = CYLINDER_X + CYLINDER_WIDTH - 4;
+        if (p.x - p.radius < innerLeft) {
+          p.x = innerLeft + p.radius;
           p.vx *= -1;
-        } else if (p.x + p.radius > CYLINDER_X + CYLINDER_WIDTH) {
-          p.x = CYLINDER_X + CYLINDER_WIDTH - p.radius;
+        } else if (p.x + p.radius > innerRight) {
+          p.x = innerRight - p.radius;
           p.vx *= -1;
         }
 
@@ -164,18 +166,28 @@ export const Simulation2D: React.FC<Simulation2DProps> = ({ state }) => {
 
       // Draw Piston with shadow
       ctx.save();
-      ctx.shadowColor = 'rgba(0,0,0,0.2)';
-      ctx.shadowBlur = 10;
+      ctx.shadowColor = 'rgba(0,0,0,0.3)';
+      ctx.shadowBlur = 12;
       ctx.shadowOffsetY = 4;
-      ctx.fillStyle = '#1e293b';
+      
+      // Piston Head (Darker, more solid)
+      ctx.fillStyle = '#0f172a';
       ctx.beginPath();
-      ctx.roundRect(CYLINDER_X - 8, pistonY - 8, CYLINDER_WIDTH + 16, 16, 4);
+      // Make piston fit exactly inside the cylinder inner walls (CYLINDER_WIDTH - 8)
+      // Height is 24px for a more substantial look, bottom face at pistonY
+      ctx.roundRect(CYLINDER_X + 4, pistonY - 24, CYLINDER_WIDTH - 8, 24, 2);
       ctx.fill();
+      
+      // Add a subtle "seal" highlight at the edges
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
       ctx.restore();
       
-      // Piston Rod
+      // Piston Rod - Connects to the top of the piston head (pistonY - 24)
       ctx.fillStyle = '#94a3b8';
-      ctx.fillRect(CYLINDER_X + CYLINDER_WIDTH / 2 - 8, 60, 16, pistonY - 8);
+      ctx.fillRect(CYLINDER_X + CYLINDER_WIDTH / 2 - 8, 60, 16, (pistonY - 24) - 60);
       
       // Handle
       ctx.fillStyle = '#0f172a';
